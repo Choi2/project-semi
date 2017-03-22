@@ -10,10 +10,14 @@
 	
 	$().ready(function() {
 	
+		$("#userId").attr("value","");
+		$("#userPassword").attr("value","");
+		
+		
 			$("#userId").keyup(function() {
 				$.post("/movie/user/checkDuplicate", 
 					{
-					"	userId" : $("#userId").val()
+					"userId" : $("#userId").val()
 					},
 				function(response) {
 						
@@ -61,7 +65,7 @@
 			else {
 				
 				$("#signUpUser").attr({
-					"action" : "/melon/user/doSignUp",
+					"action" : "/movie/user/doSignUp",
 					"method" : "post"
 				});
 				
@@ -82,10 +86,10 @@
 </head>
 <body>
 	<form id ="signUpUser">
-		<input type ="text" id="userId" name="userId" placeholder="아이디를 입력하세요^^"/> <br/>
-		<span id="duplicateState"></span>
+		<input type ="text" id="userId" name="userId" placeholder="아이디를 입력하세요^^"/> 
+		<span id="duplicateState"></span> <br/>
 		<input type ="password" id="userPassword" name="userPassword" placeholder="비밀번호를 입력하세요^^"/> <br/>
-		<input type ="password" id="userPassword-check" name="userPassword-check" placeholder="비밀번호 확인 입력하세요^^"/> <br/>
+		<!-- <input type ="password" id="userPassword-check" name="userPassword-check" placeholder="비밀번호 확인 입력하세요^^"/> <br/> -->
 		<input type ="text" id="userName" name="userName" placeholder="이름을 입력하세요^^"/> <br/>
 		<input type="button" value = "가입"/>
 	</form>

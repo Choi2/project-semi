@@ -17,7 +17,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>CheckDuplicateServlet</servlet-name>
-    <url-pattern>/checkDuplicate</url-pattern>
+    <url-pattern>/user/checkDuplicate</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -29,4 +29,33 @@
     <servlet-name>DoLoginServlet</servlet-name>
     <url-pattern>/user/doSignIn</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DoSignUpServlet</display-name>
+    <servlet-name>DoSignUpServlet</servlet-name>
+    <servlet-class>com.ktds.movie.user.web.DoSignUpServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DoSignUpServlet</servlet-name>
+    <url-pattern>/user/doSignUp</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ViewSignUpServlet</display-name>
+    <servlet-name>ViewSignUpServlet</servlet-name>
+    <servlet-class>com.ktds.movie.user.web.ViewSignUpServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewSignUpServlet</servlet-name>
+    <url-pattern>/user/signup</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>CharacterEncodingFilter</display-name>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>com.ktds.movie.common.web.CharacterEncodingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>
