@@ -1,5 +1,5 @@
 package com.ktds.movie.movie.biz;
 
-public class MovieBizImpl {
+public class MovieBizImpl implements MovieBiz {
 
 }
