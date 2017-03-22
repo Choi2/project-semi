@@ -9,4 +9,24 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>CheckDuplicateServlet</display-name>
+    <servlet-name>CheckDuplicateServlet</servlet-name>
+    <servlet-class>com.ktds.movie.user.web.CheckDuplicateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckDuplicateServlet</servlet-name>
+    <url-pattern>/checkDuplicate</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DoLoginServlet</display-name>
+    <servlet-name>DoLoginServlet</servlet-name>
+    <servlet-class>com.ktds.movie.user.web.DoLoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DoLoginServlet</servlet-name>
+    <url-pattern>/user/doSignIn</url-pattern>
+  </servlet-mapping>
 </web-app>
