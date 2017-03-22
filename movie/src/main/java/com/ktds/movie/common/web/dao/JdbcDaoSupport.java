@@ -10,9 +10,9 @@ public abstract class JdbcDaoSupport {
 	
 	private final String ACCOUNT = "MOVIE";
 	private final String PASSWORD = "movie";
-	private final String IPADDRESS = "192.168.201.22";
+	private final String IPADDRESS = "localhost";
 	
-	public Object otherFunction() {
+	public Object otherFunctions() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		} catch (ClassNotFoundException e) {
@@ -56,7 +56,7 @@ public abstract class JdbcDaoSupport {
 	}
 	
 	
-	public Object selectOne() {
+	public Object select(boolean isOne) {
 
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -77,9 +77,22 @@ public abstract class JdbcDaoSupport {
 			mappingParms(stmt);
 
 			rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				return bindData(rs);
+			
+			
+			if(isOne) {
+				
+				if (rs.next()) {
+					return bindData(rs);
+				}
+				
+			}
+			
+			else {
+				
+				while(rs.next()) {
+					bindData(rs);
+				}
+				
 			}
 			
 			return 0;

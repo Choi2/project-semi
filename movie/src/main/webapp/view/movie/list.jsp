@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>영화 리스트</title>
 <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
 
 </head>
@@ -22,12 +22,12 @@
 	 		<th>좋아요</th>
 	 		<th>조회수</th>	 		 		 	
 	 	</tr>
-	 	<c:forEach items="${moives}" var="movie">
+	 	<c:forEach items="${movieList}" var="movie">
 	 		<tr>
 	 			<td>${movie.movieId}</td>
 	 			<td><a href="/movie/detail?movieId=${moive.movieId}">${movie.content}</a>
 	 			</td>
-	 			<td>${movie.user.userName}</td>
+	 			<td>${movie.userVO.userName}</td>
 	 			<td>${movie.movieDate}</td>
 	 			<td>${movie.movieLikeCount}</td>
 	 		</tr>
@@ -35,18 +35,21 @@
 	 
 	 </table>
 	 <a href="/movie/write">글 작성</a>
+	 
 		<div>
 			<form method="post" id="serchForm">${pager}</form>
 		</div>
-	</div><!-- 
-				 --><div class="login">
-				 <c:if test="${empty sessionScope._USER_ }">
-				 <!--<jsp:include page="/view/users/singIn.jsp"/>  -->	
-				 </c:if>
-				 <c:if test="${not empty sessionScope._USER_ }">
-				 			${sessionScope._USER_.userName}님 , 환영합니다!
-				 </c:if>
-				 </div>
+	</div>
+	 
+		<div class="login">
+			<c:if test="${empty sessionScope._USER_}">
+				 <jsp:include page="/view/signin.jsp"/> 	
+			</c:if>
+			
+			<c:if test="${not empty sessionScope._USER_}">
+				 ${sessionScope._USER_.userName}님 , 환영합니다!
+			</c:if>
+		</div>
 
 </body>
 </html>

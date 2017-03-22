@@ -15,15 +15,17 @@ import com.ktds.movie.common.web.pager.Pager;
 import com.ktds.movie.common.web.pager.PagerFactory;
 import com.ktds.movie.movie.biz.MovieBiz;
 import com.ktds.movie.movie.biz.MovieBizImpl;
+import com.ktds.movie.movie.service.MovieService;
+import com.ktds.movie.movie.service.MovieServiceImpl;
 import com.ktds.movie.movie.vo.MovieSearchVO;
 import com.ktds.movie.movie.vo.MovieVO;
 
 public class ViewMovieListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private  MovieBiz movieBiz;
+    private MovieService movieService;
     
        public ViewMovieListServlet() {
-    	movieBiz = new MovieBizImpl();
+    	movieService = new MovieServiceImpl();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,19 +36,22 @@ public class ViewMovieListServlet extends HttpServlet {
 	
 		String pageNo = request.getParameter("pageNo");
 		
-		Pager pager = PagerFactory.getPager(Pager.ORACLE);
-		pager.setPageNumber(pageNo);
-		MovieSearchVO searchVO = new MovieSearchVO();
-		//searchVO.setPager(pager);
 		
-		//List<MovieVO> MovieList = movieBiz.getAll(searchVO);
-		PageExplorer pageExplorer = new ClassicPageExplorer(pager);
-		String pages = pageExplorer.getPagingList("pageNo", "[@]", "PREV", "NEXT", "searchForm");
+		MovieSearchVO movieSearchVO = new MovieSearchVO();
+		movieSearchVO.getPager().setPageNumber(pageNo);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/view/movie.jsp");
+		List<MovieVO> movieList = movieService.getAllMovies(movieSearchVO);
+		int count = movieService.selectAllMovieCount(movieSearchVO);
+		PageExplorer pager = new ClassicPageExplorer(movieSearchVO.getPager());
 		
-		request.setAttribute("count", pager.getTotalArticleCount());
+		String pages = pager.getPagingList("pageNo", "[@]", "PREV", "NEXT", "searchForm");
+		
+		
+		request.setAttribute("movieList", movieList);
 		request.setAttribute("pager", pages);
+		request.setAttribute("count", count);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/view/movie/list.jsp");
 		dispatcher.forward(request, response);
 	}
 

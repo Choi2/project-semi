@@ -30,7 +30,7 @@ public class LoginCheckFilter implements Filter {
 		
 		if(user == null){
 			HttpServletResponse httpRes = (HttpServletResponse) response;
-			httpRes.sendRedirect("/music/user/signin");
+			httpRes.sendRedirect("/movie/user/signin");
 			return;
 		} else {
 			request.setAttribute("_USER_", user); // request에 set 해놓으면

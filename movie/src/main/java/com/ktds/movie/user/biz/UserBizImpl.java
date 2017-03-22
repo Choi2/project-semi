@@ -22,4 +22,9 @@ public class UserBizImpl implements UserBiz{
 		return userDao.insertNewUser(newUserVO) > 0;
 	}
 
+	@Override
+	public UserVO loginOneUser(UserVO userVO) {
+		return userDao.loginOneUser(userVO);
+	}
+
 }

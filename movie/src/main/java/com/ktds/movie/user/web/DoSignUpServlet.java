@@ -41,8 +41,7 @@ public class DoSignUpServlet extends HttpServlet {
 		
 		userService.insertNewUser(user);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/view/signin.jsp");
-		dispatcher.forward(request, response);
+		response.sendRedirect("/user/signin");
 		
 	}
 

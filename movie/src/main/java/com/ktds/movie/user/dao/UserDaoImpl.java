@@ -50,7 +50,7 @@ public class UserDaoImpl implements UserDao {
 				return null;
 			}}; 
 		
-		return (int) jds.otherFunction();
+		return (int) jds.otherFunctions();
 	}
 	
 
@@ -90,12 +90,12 @@ public class UserDaoImpl implements UserDao {
 		
 
 		
-		return	(int) jds.selectOne();	
+		return	(int) jds.select(true);	
 	}
 
 	
 	@Override
-	public UserVO selectOneUser(UserVO userVO) {
+	public UserVO loginOneUser(UserVO userVO) {
 		
 		JdbcDaoSupport jds = new JdbcDaoSupport() {
 			
@@ -105,10 +105,10 @@ public class UserDaoImpl implements UserDao {
 				
 				query.append("	SELECT  USR_ID        ");
 				query.append("			, 	USR_NM        ");
-				query.append("			, 	USR_PW        ");
+				query.append("			, 	USR_PWD        ");
 				query.append("	FROM 	USR              ");
 				query.append("	WHERE 	USR_ID = ?      ");
-				query.append("	AND   	USR_PW = ?      ");
+				query.append("	AND   	USR_PWD = ?      ");
 				
 				return query.toString();
 					    
@@ -123,23 +123,21 @@ public class UserDaoImpl implements UserDao {
 			
 			@Override
 			public Object bindData(ResultSet rs) throws SQLException {
-				UserVO user = new UserVO();
 				
-				//user.setUserId(rs.getString("USR_ID"));
-				//user.setUserName(rs.getString("USR_NM"));
-			//	user.setUserPassword(userPassword);		
-		
-				
+				userVO.setUserId(rs.getString("USR_ID"));
+				userVO.setUserName(rs.getString("USR_NM"));
+				userVO.setUserPassword(rs.getString("USR_PWD"));	
 				
 				return userVO;
 			}
 		};
 		
-		jds.selectOne();
 		
-		return userVO;
+		
+		return (UserVO) jds.select(true);
 		
 	}
+	
 
 	@Override
 	public int updateUserInfo(UserVO userVO) {

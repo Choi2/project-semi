@@ -23,4 +23,9 @@ public class UserServiceImpl implements UserService{
 		return userBiz.insertNewUser(newUserVO);
 	}
 
+	@Override
+	public UserVO loginOneUser(UserVO userVO) {
+		return userBiz.loginOneUser(userVO);
+	}
+
 }

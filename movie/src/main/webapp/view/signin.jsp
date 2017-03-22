@@ -10,7 +10,7 @@
 		
 		$("#signInUser").find("input[type=button]").click(function() {
 			$("#signInUser").attr({
-				"action" : "/movie/user/doSignIn",
+				"action" : "/movie/user/signin",
 				"method" : "post"
 			});
 			

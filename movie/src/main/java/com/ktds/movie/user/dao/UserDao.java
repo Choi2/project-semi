@@ -10,7 +10,7 @@ public interface UserDao {
 	public int insertNewUser(UserVO newUserVO);
 	public List<UserVO>selectAllUser(UserSearchVO userSearchVO);
 	public int checkOneAccount(String userId);
-	public UserVO selectOneUser(UserVO userVO);
+	public UserVO loginOneUser(UserVO userVO);
 	public int updateUserInfo(UserVO userVO);
 	public int deleteOneUser(String userId);
 	public int selectAllUserCount(UserSearchVO userSearchVO);
