@@ -13,7 +13,7 @@ public class MovieSearchVO {
 	public Pager getPager() {
 		
 		if(pager == null) {
-			pager = PagerFactory.getPager(Pager.ORACLE, 20, 10);
+			pager = PagerFactory.getPager(Pager.ORACLE);
 		}
 		
 		return pager;

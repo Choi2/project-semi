@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+
+.login {
+	position : relative;
+	z-index : 1000;
+	height : 30px;
+	background-color : #34effe;
+}
+
+a, p {
+	font-size : 13pt;
+}
+
+th{
+	text-align : center;
+	font-weight: bold;	
+	background-color: powderblue;
+	font-size: 14pt;	
+	height: auto;
+}
+
+
+td {
+	text-align : center;
+	font-size: 14pt;	
+}

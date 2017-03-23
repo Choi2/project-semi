@@ -21,7 +21,7 @@ public class MovieBizImpl implements MovieBiz {
 	public List<MovieVO> getAllMovies(MovieSearchVO movieSearchVO) {
 		
 		int MusicCount = movieDao.selectAllMovieCount(movieSearchVO);
-		movieSearchVO.getPager().setPageNumber(MusicCount);
+		movieSearchVO.getPager().setPageNumber(MusicCount - 2);
 		
 		if(MusicCount == 0) {
 			return new ArrayList<MovieVO>();

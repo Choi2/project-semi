@@ -5,12 +5,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ktds.movie.movie.vo.MovieVO;
 
 public abstract class JdbcDaoSupport {
 	
 	private final String ACCOUNT = "MOVIE";
 	private final String PASSWORD = "movie";
-	private final String IPADDRESS = "localhost";
+	private final String IPADDRESS = "192.168.201.22";
 	
 	public Object otherFunctions() {
 		try {
@@ -89,10 +93,14 @@ public abstract class JdbcDaoSupport {
 			
 			else {
 				
+				List<MovieVO> movieList = new ArrayList<MovieVO>();
+				
 				while(rs.next()) {
-					bindData(rs);
+					movieList.add((MovieVO) bindData(rs));
 				}
 				
+				
+				return movieList;
 			}
 			
 			return 0;

@@ -1,3 +1,7 @@
+ 
+
+
+
 package com.ktds.movie.movie.dao;
 
 import java.sql.PreparedStatement;
@@ -16,7 +20,7 @@ public class MovieDaoImpl implements MovieDao{
 	@Override
 	public List<MovieVO> getAllMovies(MovieSearchVO movieSearchVO) {
 	
-		List<MovieVO> movieList = new ArrayList<MovieVO>();
+
 		
 		JdbcDaoSupport jds = new JdbcDaoSupport() {
 			
@@ -32,15 +36,17 @@ public class MovieDaoImpl implements MovieDao{
 				query.append("				FROM	(                                             ");
 				query.append("						SELECT		M.MVIFMT_ID                       ");
 				query.append("								,	M.USR_ID                          ");
-				query.append("								, 	TO_CHAR(M.MVIFMT_DT, 'YYYY-MM-DD')  ");
+				query.append("								, 	TO_CHAR(M.MVIFMT_DT, 'YYYY-MM-DD')	MVIFMT_DT ");
 				query.append("								, 	M.MVIFMT_LK                         ");
 				query.append("								,	M.MVIFMT_CNTN                       ");
 				query.append("								,	M.MVIFMT_CK                         ");
+				query.append("								,	M.MVIFMT_TTL                        ");
 				query.append("								,	U.USR_NM                         	");
 				query.append("								                                      ");
 				query.append("						FROM		MVIFMT	M                         ");
 				query.append("								, 	USR		U                         ");
 				query.append("						WHERE	M.USR_ID	=	U.USR_ID              ");
+				query.append("						ORDER	BY	M.MVIFMT_ID		DESC              ");
 				query.append("						)	A                                         ");
 				query.append("				WHERE		ROWNUM	<=	?                             ");
 				query.append("			)                                                         ");
@@ -54,7 +60,6 @@ public class MovieDaoImpl implements MovieDao{
 				
 				stmt.setInt(1, movieSearchVO.getPager().getEndArticleNumber());
 				stmt.setInt(2, movieSearchVO.getPager().getStartArticleNumber());
-				
 			}
 			
 			@Override
@@ -66,23 +71,19 @@ public class MovieDaoImpl implements MovieDao{
 				movie.setMovieDate(rs.getString("MVIFMT_DT"));
 				movie.setMovieLikeCount(rs.getInt("MVIFMT_LK"));
 				movie.setMovieContent(rs.getString("MVIFMT_CNTN"));
+				movie.setMovieTitle(rs.getString("MVIFMT_TTL"));
 				movie.setMovieCheck(rs.getInt("MVIFMT_CK"));
 				movie.getUserVO().setUserName(rs.getString("USR_NM"));;
 				
-				movieList.add(movie);
-				
 			
 				
-				return null;
+				return movie;
 			}
 			
 		};
 		
-		List<MovieVO> movie = (List<MovieVO>) jds.select(false);
-		
-		System.out.println(movie.get(0).getUserVO().getUserName());
-		
-		return null;
+
+		return (List<MovieVO>) jds.select(false);
 		
 	}
 
@@ -97,7 +98,7 @@ public class MovieDaoImpl implements MovieDao{
 				
 				StringBuffer query = new StringBuffer();
                 
-				query.append("	SELECT	ROWNUM	AS	CNT");
+				query.append("	SELECT	COUNT(1)	AS	CNT");
 				query.append("	FROM	MVIFMT	     	");
 						
 				return query.toString();
@@ -112,13 +113,7 @@ public class MovieDaoImpl implements MovieDao{
 			
 			@Override
 			public Object bindData(ResultSet rs) throws SQLException {
-				
-				int tmp = 0;
-				
-				if(!rs.getString("CNT").equals(null)) {
-					tmp = rs.getInt("CNT");
-				}
-					return tmp;
+				return  rs.getInt("CNT");
 			}
 		};
 		

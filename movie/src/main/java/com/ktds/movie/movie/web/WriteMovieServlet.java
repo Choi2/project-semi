@@ -40,6 +40,10 @@ public class WriteMovieServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserVO user = (UserVO) session.getAttribute("_USER_");
 		
+		if(user == null) {
+			response.sendRedirect("/movie/signin/");
+			return ;
+		}
 		
 		String movieTitle = multipart.getParameter("movieTitle");
 		String movieContent = multipart.getParameter("movieContent");

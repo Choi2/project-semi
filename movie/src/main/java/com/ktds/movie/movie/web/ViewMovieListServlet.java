@@ -36,15 +36,18 @@ public class ViewMovieListServlet extends HttpServlet {
 	
 		String pageNo = request.getParameter("pageNo");
 		
-		
+
 		MovieSearchVO movieSearchVO = new MovieSearchVO();
 		movieSearchVO.getPager().setPageNumber(pageNo);
 		
 		List<MovieVO> movieList = movieService.getAllMovies(movieSearchVO);
+	
 		int count = movieService.selectAllMovieCount(movieSearchVO);
 		PageExplorer pager = new ClassicPageExplorer(movieSearchVO.getPager());
 		
-		String pages = pager.getPagingList("pageNo", "[@]", "PREV", "NEXT", "searchForm");
+		
+		
+		String pages = pager.getPagingList(pageNo, "[@]", "PREV", "NEXT", "searchForm");
 		
 		
 		request.setAttribute("movieList", movieList);
